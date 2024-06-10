@@ -48,13 +48,13 @@ npm start
 
 ### API Endpoints
 
-#### Get All Boardgames
+#### - Get All Boardgames
 
 `GET /api/boardgames`
-#### Get a Single Boardgame
+#### - Get a Single Boardgame
 
 `GET /api/boardgames/:boardgameId`
-#### Add a New Boardgame
+#### - Add a New Boardgame
 
 `POST /api/boardgames`
 
@@ -75,7 +75,7 @@ Use in `req.body`:
 }
 ```
 
-#### Update a Boardgame
+#### - Update a Boardgame
 
 `PUT /api/boardgames/:boardgameId`
 
