@@ -96,7 +96,7 @@ Use in `req.body`:
 }
 ```
 
-#### Delete a Boardgame
+#### - Delete a Boardgame
 
 `DELETE /api/boardgames/:boardgameId`
 
