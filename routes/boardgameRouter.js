@@ -1,11 +1,13 @@
-// routes/boardgameRouter.js
 const express = require('express');
 const { db } = require('../firebase');
+const authenticate = require('../middleware/authenticate');
 const boardgameRouter = express.Router();
+const cors = require('./cors');
 
 // Route for handling all boardgames
 boardgameRouter.route('/')
-    .get(async (req, res) => {
+    .options(cors.corsWithOptions, authenticate.verifyUser, (req, res) => res.sendStatus(200))
+    .get(cors.cors, async (req, res) => {
         try {
             const boardgamesSnapshot = await db.collection('boardgames').get();
             const boardgames = boardgamesSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
@@ -16,7 +18,7 @@ boardgameRouter.route('/')
             res.status(500).send(error.message);
         }
     })
-    .post(async (req, res) => {
+    .post(cors.corsWithOptions, authenticate.verifyUser, async (req, res) => {
         try {
             const newBoardgame = req.body;
             const addedBoardgame = await db.collection('boardgames').add(newBoardgame);
@@ -25,16 +27,17 @@ boardgameRouter.route('/')
             res.status(500).send(error.message);
         }
     })
-    .put((req, res) => {
+    .put(cors.corsWithOptions, authenticate.verifyUser, (req, res) => {
         res.status(403).send('PUT operation not supported on /boardgames');
     })
-    .delete((req, res) => {
+    .delete(cors.corsWithOptions, authenticate.verifyUser, (req, res) => {
         res.status(403).send('DELETE operation not supported on /boardgames');
     });
 
 // Route for handling specific boardgames
 boardgameRouter.route('/:boardgameId')
-    .get(async (req, res) => {
+    .options(cors.corsWithOptions, (req, res) => res.sendStatus(200))
+    .get(cors.cors, async (req, res) => {
         try {
             const boardgameDoc = await db.collection('boardgames').doc(req.params.boardgameId).get();
             if (!boardgameDoc.exists) {
@@ -45,10 +48,10 @@ boardgameRouter.route('/:boardgameId')
             res.status(500).send(error.message);
         }
     })
-    .post((req, res) => {
+    .post(cors.corsWithOptions, authenticate.verifyUser, (req, res) => {
         res.status(403).send('POST operation not supported on /boardgames/:boardgameId');
     })
-    .put(async (req, res) => {
+    .put(cors.corsWithOptions, authenticate.verifyUser, async (req, res) => {
         try {
             const updatedBoardgame = req.body;
             await db.collection('boardgames').doc(req.params.boardgameId).set(updatedBoardgame, { merge: true });
@@ -57,10 +60,10 @@ boardgameRouter.route('/:boardgameId')
             res.status(500).send(error.message);
         }
     })
-    .delete(async (req, res) => {
+    .delete(cors.corsWithOptions, authenticate.verifyUser, async (req, res) => {
         try {
             await db.collection('boardgames').doc(req.params.boardgameId).delete();
-            res.status(204).send();
+            res.status(204).send('Successfully deleted boardgame.');
         } catch (error) {
             res.status(500).send(error.message);
         }
