@@ -6,6 +6,7 @@ require('dotenv').config();
 
 const boardgameRouter = require('../routes/boardgameRouter');
 const scoresRouter = require('../routes/scoresRouter')
+const trendingRouter = require('../routes/trendingRouter')
 const userRouter = require('../routes/users');
 
 const app = express();
@@ -27,6 +28,7 @@ app.use(passport.initialize());
 
 // Routes
 app.use('/api/boardgames', boardgameRouter);
+app.use('/api/trending', trendingRouter);
 app.use('/api/scores', scoresRouter);
 app.use('/api/users', userRouter);
 
