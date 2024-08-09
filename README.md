@@ -15,14 +15,14 @@ This repository contains the backend server for the Boardgame Shelf application.
 
 - Node.js (v14.x or later)
 - npm (v6.x or later)
-- Firebase Project with Firestore enabled
+- Firebase Project with Firestore enabled (may obtain this upon request)
 
 ### Installation
 
 1. Clone the repository:
 ```bash
 git clone https://github.com/esthermdev/boardgamesServer.git
-cd boardgame-shelf-backend
+cd boardgameServer
 ```
 
 2. Install dependencies:
@@ -46,7 +46,7 @@ npm start
 ```
 6. Port will run on http://localhost:8000/
 
-### API Endpoints
+### Example API Endpoints
 
 #### - Get All Boardgames
 
