@@ -64,7 +64,7 @@ module.exports = { admin, db }
 
 5. Create a `.env` file in the root directory and add the following environment variables:
 ```
-PORT=8443
+PORT=8000
 FIREBASE_SERVICE_ACCOUNT_KEY=./firebaseServiceAccountKey.json
 JWT_SECRET=your_jwt_secret_here
 ```
@@ -74,7 +74,7 @@ JWT_SECRET=your_jwt_secret_here
 npm start
 ```
 
-The server will run on `https://localhost:8443`.
+The server will run on `https://localhost:8000`.
 
 ## Setting Up Your Own Firebase Project
 
